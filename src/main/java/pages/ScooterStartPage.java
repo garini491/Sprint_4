@@ -19,9 +19,9 @@ public class ScooterStartPage {
     // Верхняя кнопка "Заказать"
     private By createOrderHigh = By.className("Button_Button__ra12g");
     // Нижняя кнопка "Заказать"
-    private By createOrderLow = By.className("Button_Button__ra12g Button_Middle__1CSJM");
+    private By createOrderLow = By.className("Home_FinishButton__1_cWm");
     // Кнопка подтверждения куки
-    private By coockyButton = By.id("rcc-confirm-button");
+    private By cookieButton = By.id("rcc-confirm-button");
 
     public ScooterStartPage(WebDriver driver){
         this.driver = driver;
@@ -53,8 +53,8 @@ public class ScooterStartPage {
         return expectedTexts[i];
     }
     // Метод нажатия на кнопку куки
-    public void coockyButtonClick() {
-        driver.findElement(coockyButton).click();
+    public void cookieButtonClick() {
+        driver.findElement(cookieButton).click();
     }
 
 
@@ -66,5 +66,21 @@ public class ScooterStartPage {
     // Метод клика на нижнюю кнопку "Заказать"
     public void lowClick() {
         driver.findElement(createOrderLow).click();
+    }
+
+    // Метод для клика на вопрос
+    public void questionClick(int i) {
+        driver.findElement(By.xpath(".//div[@id = 'accordion__heading-" + i + "']")).click();
+    }
+
+    // Метод получения текста после нажатия на кнопку
+    public String getAnswer(int i) {
+        return driver.findElement(By.xpath(".//div[@id = 'accordion__panel-" + i +"']/p")).getText();
+    }
+
+    // Метод прокрутки до нижней кнопки
+    public void findLowButton() {
+        WebElement element = driver.findElement(createOrderLow);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 }

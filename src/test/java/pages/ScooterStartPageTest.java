@@ -4,11 +4,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 
 import static org.junit.Assert.assertEquals;
@@ -28,26 +27,25 @@ public class ScooterStartPageTest {
         driver = new ChromeDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
         startPage.scrollToQuestions();
         for (int i = 0; i < 8; i++) {
-            driver.findElement(By.xpath(".//div[@id = 'accordion__heading-" + i + "']")).click();
-            WebElement element = driver.findElement(By.xpath(".//div[@id = 'accordion__panel-" + i +"']/p"));
-                assertEquals(startPage.getExpectedTexts(i), element.getText());
-            }
+            startPage.questionClick(i);
+            assertEquals(startPage.getExpectedTexts(i), startPage.getAnswer(i));
+        }
     }
 
     @Test
     public void checkAnswersFireFox() {
+        System.setProperty("webdriver.gecko.driver", "/home/a.zmei/WebDriver/bin/geckodriver/geckodriver");
         driver = new FirefoxDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
         startPage.scrollToQuestions();
         for (int i = 0; i < 8; i++) {
-            driver.findElement(By.xpath(".//div[@id = 'accordion__heading-" + i + "']")).click();
-            WebElement element = driver.findElement(By.xpath(".//div[@id = 'accordion__panel-" + i +"']/p"));
-            assertEquals(startPage.getExpectedTexts(i), element.getText());
+            startPage.questionClick(i);
+            assertEquals(startPage.getExpectedTexts(i), startPage.getAnswer(i));
         }
     }
 

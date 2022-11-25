@@ -1,13 +1,11 @@
 package pages;
 
-import org.hamcrest.MatcherAssert;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
-import static org.hamcrest.core.Is.is;
 
 public class ScooterOrderPage {
 
@@ -33,10 +31,10 @@ public class ScooterOrderPage {
     private By date = By.xpath(".//input[@placeholder = '* Когда привезти самокат']");
 
     // Модальное окно подтверждения заказа
-    private By orderModal = By.xpath(".//div[@class = 'Order_Modal__YZ-d3']");
+    private By orderModal = By.xpath(".//div[@class = 'Order_ModalHeader__3FDaJ']");
 
     // Кнопка "Да" модального окна
-    private By yesButton = By.xpath(".//div[@class = 'Order_Modal__YZ-d3']/button[text() = 'Да']");
+    private By yesButton = By.xpath(".//div[@class = 'Order_Buttons__1xGrp']/button[text() = 'Да']");
 
     // Поле Периода аренды
     private By periodRent = By.className("Dropdown-control");
@@ -44,6 +42,13 @@ public class ScooterOrderPage {
     // Цвета самоката
     private By blackScooter = By.id("black");
     private By greyScooter = By.id("grey");
+
+    // Ожидаемый результат
+    private By expectedOrder = By.xpath(".//div[@class = 'Order_Text__2broi']/parent::div");
+    // Метод получения ожидаемого результата
+    public String getExpected() {
+        return driver.findElement(expectedOrder).getText();
+    }
 
     // Кнопка "Посмотреть статус"
     private By lookStatus = By.xpath(".//button[text() = 'Посмотреть статус']");
@@ -55,13 +60,9 @@ public class ScooterOrderPage {
     private By cancelModal = By.xpath(".//div[text() = 'Хотите отменить заказ?']");
 
     // Кнопка Отменить в модальном окне
-    private By cancel = By.xpath(".//button[text() = 'Отменить'");
+    private By cancel = By.xpath(".//button[text() = 'Отменить']");
 
-    // Окно подтверждения отмененного заказа
-    private By orderCancelModal = By.xpath(".div[text() = 'Заказ отменён'");
 
-    // Кнопка "Хорошо"
-    private  By goodButton = By.xpath(".//button[text() = 'Хорошо']");
 
     // Поле комментария
     private By comment = By.xpath(".//input[@placeholder = 'Комментарий для курьера']");
@@ -123,9 +124,9 @@ public class ScooterOrderPage {
         driver.findElement(By.xpath(".//div[text() = '" + range + "']")).click();
     }
 
-    // Метод выюора самоката
+    // Метод выбора самоката
     public void setScooter (String color) {
-        if(color == "чёрный жемчуг") {
+        if(color.equals("чёрный жемчуг")) {
             driver.findElement(blackScooter).click();
         } else {
             driver.findElement(greyScooter).click();
@@ -153,7 +154,7 @@ public class ScooterOrderPage {
 
     // Метод клика на кнопку да
     public void yesClick() {
-        new WebDriverWait(driver, 5)
+        new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOf(driver.findElement(orderModal)));
         driver.findElement(yesButton).click();
     }
@@ -170,10 +171,6 @@ public class ScooterOrderPage {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOf(driver.findElement(cancelModal)));
         driver.findElement(cancel).click();
-        new WebDriverWait(driver, 3)
-                .until(ExpectedConditions.visibilityOf(driver.findElement(orderCancelModal)));
-        driver.findElement(goodButton).click();
-
     }
 
 }

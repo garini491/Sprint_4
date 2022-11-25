@@ -11,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -74,64 +75,65 @@ public class ScooterOrderPageTest {
         driver = new ChromeDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
         startPage.highClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        String expected = "Заказ оформлен";
-        assertEquals(expected,createOrder.orderCreated());
+        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
         createOrder.cancelOrder();
     }
     @Test
     public void createOrderChromeLow() {
+        System.setProperty("webdriver.gecko.driver", "/home/a.zmei/WebDriver/bin/geckodriver/geckodriver");
         driver = new ChromeDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
+        startPage.findLowButton();
         startPage.lowClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        String expected = "Заказ оформлен";
-        assertEquals(expected,createOrder.orderCreated());
+        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
         createOrder.cancelOrder();
     }
     @Test
     public void createOrderFirefoxHigh() {
+        System.setProperty("webdriver.gecko.driver", "/home/a.zmei/WebDriver/bin/geckodriver/geckodriver");
         driver = new FirefoxDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
         startPage.highClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        String expected = "Заказ оформлен";
-        assertEquals(expected,createOrder.orderCreated());
+        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
         createOrder.cancelOrder();
     }
     @Test
     public void createOrderFirefoxLow() {
+        System.setProperty("webdriver.gecko.driver", "/home/a.zmei/WebDriver/bin/geckodriver/geckodriver");
         driver = new FirefoxDriver();
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
-        startPage.coockyButtonClick();
+        startPage.cookieButtonClick();
+        startPage.findLowButton();
         startPage.lowClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        String expected = "Заказ оформлен";
-        assertEquals(expected,createOrder.orderCreated());
+        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
         createOrder.cancelOrder();
     }
 
     @After
-    public void tierDown() {
+    public void tearDown() {
         driver.quit();
     }
 }
