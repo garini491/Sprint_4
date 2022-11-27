@@ -27,17 +27,6 @@ public class ScooterStartPage {
         this.driver = driver;
     }
 
-    // Массив текстов
-    private String[] expectedTexts = {
-            "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
-            "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
-            "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
-            "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
-            "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
-            "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
-            "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
-            "Да, обязательно. Всем самокатов! И Москве, и Московской области."
-    };
 
     // Открытие страницы
     public void openStartPage() {
@@ -49,9 +38,7 @@ public class ScooterStartPage {
         WebElement element = driver.findElement(homeFAQ);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
     }
-    public String getExpectedTexts(int i) {
-        return expectedTexts[i];
-    }
+
     // Метод нажатия на кнопку куки
     public void cookieButtonClick() {
         driver.findElement(cookieButton).click();
@@ -69,17 +56,17 @@ public class ScooterStartPage {
     }
 
     // Метод для клика на вопрос
-    public void questionClick(int i) {
-        driver.findElement(By.xpath(".//div[@id = 'accordion__heading-" + i + "']")).click();
+    public void questionClick(String question) {
+        driver.findElement(By.xpath(".//div[text() = '" + question + "']")).click();
     }
 
     // Метод получения текста после нажатия на кнопку
-    public String getAnswer(int i) {
-        return driver.findElement(By.xpath(".//div[@id = 'accordion__panel-" + i +"']/p")).getText();
+    public String getAnswer(String question) {
+        return driver.findElement(By.xpath(".//div[text() = '" + question +"']/parent::div/parent::div/div[2]/p")).getText();
     }
 
     // Метод прокрутки до нижней кнопки
-    public void findLowButton() {
+    public void findLowCreateButton() {
         WebElement element = driver.findElement(createOrderLow);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
     }

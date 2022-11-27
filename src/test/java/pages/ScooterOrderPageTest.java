@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class ScooterOrderPageTest {
@@ -81,7 +81,7 @@ public class ScooterOrderPageTest {
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
+        assertTrue("Окно с уведомлением, что заказ оформлен не появилось:",createOrder.getExpected());
         createOrder.cancelOrder();
     }
     @Test
@@ -91,13 +91,13 @@ public class ScooterOrderPageTest {
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
         startPage.cookieButtonClick();
-        startPage.findLowButton();
+        startPage.findLowCreateButton();
         startPage.lowClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
+        assertTrue("Окно с уведомлением, что заказ оформлен не появилось:",createOrder.getExpected());
         createOrder.cancelOrder();
     }
     @Test
@@ -112,7 +112,7 @@ public class ScooterOrderPageTest {
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
+        assertTrue("Окно с уведомлением, что заказ оформлен не появилось:",createOrder.getExpected());
         createOrder.cancelOrder();
     }
     @Test
@@ -122,13 +122,13 @@ public class ScooterOrderPageTest {
         ScooterStartPage startPage = new ScooterStartPage(driver);
         startPage.openStartPage();
         startPage.cookieButtonClick();
-        startPage.findLowButton();
+        startPage.findLowCreateButton();
         startPage.lowClick();
         ScooterOrderPage createOrder = new ScooterOrderPage(driver);
         createOrder.regData(name,lname,adres,station,phone);
         createOrder.regScooter(day,period,color,comment);
         createOrder.yesClick();
-        assertEquals(createOrder.getExpected(),createOrder.orderCreated());
+        assertTrue("Окно с уведомлением, что заказ оформлен не появилось:",createOrder.getExpected());
         createOrder.cancelOrder();
     }
 

@@ -44,10 +44,10 @@ public class ScooterOrderPage {
     private By greyScooter = By.id("grey");
 
     // Ожидаемый результат
-    private By expectedOrder = By.xpath(".//div[@class = 'Order_Text__2broi']/parent::div");
+    private By expectedOrder = By.xpath(".//div[contains(text(),'Заказ оформлен')]");
     // Метод получения ожидаемого результата
-    public String getExpected() {
-        return driver.findElement(expectedOrder).getText();
+    public boolean getExpected() {
+        return driver.findElement(expectedOrder).isDisplayed();
     }
 
     // Кнопка "Посмотреть статус"
@@ -61,7 +61,6 @@ public class ScooterOrderPage {
 
     // Кнопка Отменить в модальном окне
     private By cancel = By.xpath(".//button[text() = 'Отменить']");
-
 
 
     // Поле комментария
@@ -157,11 +156,6 @@ public class ScooterOrderPage {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.visibilityOf(driver.findElement(orderModal)));
         driver.findElement(yesButton).click();
-    }
-
-    // Метод получения текста "Заказ оформлен"
-    public String orderCreated() {
-        return driver.findElement(orderModal).getText();
     }
 
     // Метод возврата стенда в исходное состояние (отмена заказа)
